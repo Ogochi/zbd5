@@ -26,7 +26,6 @@ class CreateUsers(graphene.Mutation):
       users = graphene.List(UserInput)
 
     ok = graphene.Boolean()
-    users = graphene.List(User)
 
     def mutate(self, info, users):
       new_users = []
@@ -40,7 +39,7 @@ class CreateUsers(graphene.Mutation):
       db_session.commit()
 
       ok = True
-      return CreateUsers(users=new_users, ok=ok)
+      return CreateUsers(ok=ok)
 
 
 class Mutation(graphene.ObjectType):

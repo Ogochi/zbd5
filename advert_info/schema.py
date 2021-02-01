@@ -25,7 +25,6 @@ class CreateAdverts(graphene.Mutation):
       adverts = graphene.List(AdvertInput)
 
     ok = graphene.Boolean()
-    adverts = graphene.List(Advert)
 
     def mutate(self, info, adverts):
       new_adverts = []
@@ -39,7 +38,7 @@ class CreateAdverts(graphene.Mutation):
       db_session.commit()
 
       ok = True
-      return CreateAdverts(adverts=new_adverts, ok=ok)
+      return CreateAdverts(ok=ok)
 
 
 class Mutation(graphene.ObjectType):
