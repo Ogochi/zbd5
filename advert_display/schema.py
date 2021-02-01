@@ -29,10 +29,9 @@ class CreateUsers(graphene.Mutation):
     users = graphene.List(User)
 
     def mutate(self, info, users):
-      users = [UserModel(**input_to_dictionary(input)) \
-        for input in users]
-
-      db_session.bulk_save_objects(users)
+      users = [UserModel(**input_to_dictionary(input)) for input in users]
+      
+      db_session.bulk_save_objects(users, return_defaults = True)
       db_session.commit()
 
       ok = True
