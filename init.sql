@@ -6,7 +6,7 @@ CREATE TABLE uuser(
     latitude float null
 );
 
-CREATE TABLE user_interests(
+CREATE TABLE user_interest(
     id serial primary key,
     user_id uuid not null references uuser,
     interest varchar(50) not null

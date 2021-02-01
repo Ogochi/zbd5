@@ -31,8 +31,7 @@ class CreateAdverts(graphene.Mutation):
       new_adverts = []
       for advert in adverts:
         new_advert = AdvertModel(**input_to_dictionary(advert, ["text_contents"]))
-        texts = [AdvertText(text_content=text) for text in advert.text_contents]
-        new_advert.text_contents.extend(texts)
+        new_advert.text_contents.extend([AdvertText(text_content=text) for text in advert.text_contents])
       
         new_adverts.append(new_advert)
       
