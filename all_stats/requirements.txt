@@ -1,0 +1,6 @@
+Flask-GraphQL
+graphene
+flask
+sqlalchemy
+graphene_sqlalchemy
+psycopg2

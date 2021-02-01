@@ -31,7 +31,9 @@ class CreateUsers(graphene.Mutation):
       new_users = []
       for user in users:
         new_user = UserModel(**input_to_dictionary(user, ["interests"]))
-        new_user.interests.extend([UserInterest(interest=interest) for interest in user.interests])
+
+        if user.interests is not None:
+          new_user.interests.extend([UserInterest(interest=interest) for interest in user.interests])
 
         new_users.append(new_user)
       
