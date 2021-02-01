@@ -1,4 +1,4 @@
-from models import Advert as AdvertModel
+from models import Advert as AdvertModel, AdvertText
 from database import db_session
 from utils import input_to_dictionary
 
@@ -28,13 +28,19 @@ class CreateAdverts(graphene.Mutation):
     adverts = graphene.List(Advert)
 
     def mutate(self, info, adverts):
-      adverts = [AdvertModel(**input_to_dictionary(input)) for input in adverts]
+      new_adverts = []
+      for advert in adverts:
+        new_advert = AdvertModel(**input_to_dictionary(advert, ["text_contents"]))
+        texts = [AdvertText(text_content=text) for text in advert.text_contents]
+        new_advert.text_contents.extend(texts)
       
-      db_session.bulk_save_objects(adverts, return_defaults = True)
+        new_adverts.append(new_advert)
+      
+      db_session.add_all(new_adverts)
       db_session.commit()
 
       ok = True
-      return CreateAdverts(adverts=adverts, ok=ok)
+      return CreateAdverts(adverts=new_adverts, ok=ok)
 
 
 class Mutation(graphene.ObjectType):
