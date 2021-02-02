@@ -93,9 +93,9 @@ mutation {
   createUsers(users: [
     {
       gender: "M"
-      yearlyIncome:22222
-      longitude:61.22
-      latitude:15.1
+      yearlyIncome: 22222
+      longitude: 61.22
+      latitude: 15.1
       interests: ["cyberpunk", "lol"]
     }
   ]) {
@@ -105,3 +105,31 @@ mutation {
 ```
 
 #### all_stats
+
+```js
+query {
+  advertDisplays {
+    edges {
+      node {
+        advertId
+        userId
+        displayTime
+        advert {
+          mainColor
+        }
+        user {
+          yearlyIncome
+        }
+      }
+    }
+  }
+}
+```
+
+```js
+query {
+  advertsCount(
+    startDate: "2006-01-02T16:04:05",
+    endDate: "2006-02-02T16:04:05")
+}
+```
